@@ -4,7 +4,7 @@
 
 int main(int argc, char** argv)
 {
-	Resource* res = new Resource();
-	delete res;
+	Auto_ptr1<Resource> res(new Resource());
+
 	return 0;
 }
