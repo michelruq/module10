@@ -5,6 +5,7 @@ class Resource
 public:
 	Resource();
 	~Resource();
+	void sayHi();
 };
 
 Resource::Resource()
@@ -15,4 +16,9 @@ Resource::Resource()
 Resource::~Resource()
 {
 	std::cout << "Resource destroyed" << std::endl;
+}
+
+void Resource::sayHi()
+{
+	std::cout << "Hi!" << std::endl;
 }
