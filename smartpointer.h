@@ -10,6 +10,25 @@ public:
 
 	}
 
+	Auto_ptr1(Auto_ptr1& a)
+	{
+		m_ptr = a.m_ptr;
+		a.m_ptr = nullptr;
+	}
+
+	Auto_ptr1& operator=(Auto_ptr1& a)
+	{
+		if (&a == this)
+		{
+			return *this;
+		}
+
+		delete m_ptr;
+		m_ptr = a.m_ptr;
+		a.m_ptr = nullptr;
+		return *this;
+	}
+
 	~Auto_ptr1()
 	{
 		delete m_ptr;
@@ -17,5 +36,7 @@ public:
 
 	T& operator*() const { return *m_ptr; }
 	T* operator->() const { return m_ptr; }
+
+	bool isNull() const { return m_ptr == nullptr; }
 
 };
