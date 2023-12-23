@@ -3,28 +3,26 @@
 #include "dinamicarray.h"
 #include "timer.h"
 
-DynamicArray<int> cloneArrayAndDouble(const DynamicArray<int>& arr)
+template<class T>
+void mySwapCopy(T& a, T& b)
 {
-	DynamicArray<int> dbl(arr.getLength());
-	for (int i = 0; i < arr.getLength(); ++i)
-	{
-		dbl[i] = arr[i]*2;
-	}
-	return dbl;
+	T tmp{std::move(a)};
+	a = std::move(b);
+	b = std::move(tmp);
 }
-
 
 int main(int argc, char** argv)
 {
-	Timer t;
-	DynamicArray<int> arr(1000000);
-	for (int i = 0; i < arr.getLength(); ++i)
-	{
-		arr[i] = i;
-	}
+	std::string x{"abc"};
+	std::string y{"de"};
 
-	arr = cloneArrayAndDouble(arr);
-	std::cout << t.elapsed();
+	std::cout << "x: " << x << std::endl;
+	std::cout << "y: " << y << std::endl;
+
+	mySwapCopy(x, y);
+
+	std::cout << "x: " << x << std::endl;
+	std::cout << "y: " << y << std::endl;
 
 	return 0;
 }
