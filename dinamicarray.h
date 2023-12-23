@@ -19,28 +19,32 @@ public:
 		delete[] m_array;
 	}
 
-	DynamicArray(const DynamicArray& array) : m_length{ array.m_length}
+	DynamicArray(const DynamicArray& array) = delete;
+	DynamicArray& operator=(const DynamicArray& arr) = delete;
+
+	DynamicArray(DynamicArray&& array) noexcept :
+		m_array(array.m_array), m_length(array.m_length)
 	{
-		m_array = new T[m_length];
-		std::copy_n(array.m_array, m_length, m_array);
+		array.m_length = 0;
+		array.m_array = nullptr;
 	}
 
-	DynamicArray& operator=(const DynamicArray& arr)
+	DynamicArray& operator=(DynamicArray&& array) noexcept
 	{
-		if (&arr == this)
+		if (this == &array)
 		{
 			return *this;
 		}
 
 		delete[] m_array;
-
-		m_length = arr.m_length;
-		m_array = new T[m_length];
-		std::copy_n(arr.m_array, m_length, m_array);
+		m_length = array.m_length;
+		m_array = array.m_array;
+		array.m_length = 0;
+		array.m_array = nullptr;
 
 		return *this;
-
 	}
+	
 
 	int getLength() const;
 	T& operator[](int index);
